@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,9 +19,8 @@ public class Reader {
         String join = String.join("\n", Files.readAllLines(PATH))
                 .replaceAll("\\s+", " ");
 
-        for (String word : join.split(" ")) {
-            WORD_COUNT.put(word, WORD_COUNT.getOrDefault(word, 0) + 1);
-        }
+        Arrays.stream(join.split(" "))
+                .forEach(word -> WORD_COUNT.put(word, WORD_COUNT.getOrDefault(word, 0) + 1));
 
         WORD_COUNT.entrySet()
                 .stream()
